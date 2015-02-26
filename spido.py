@@ -16,7 +16,8 @@ except Exception,e:
 
 # Configure option parsing
 parser = OptionParser()
-parser.add_option('-c','--config-file',dest='conf',default='spido.conf',
+parser.add_option('-c','--config-file',dest='conf',
+	default='spido.conf',metavar='FILE',
 	help='Path to spido.conf, default is ./spido.conf')
 (options,args) = parser.parse_args()
 
