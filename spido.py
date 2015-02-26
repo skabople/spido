@@ -1,6 +1,6 @@
 #!/usr/bin/python
 
-import re,logging
+import re,logging,stat
 from os import path,walk
 from sys import exit,version_info as ver
 from optparse import OptionParser
