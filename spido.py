@@ -40,14 +40,14 @@ try:
 	logfile = config.get('main','logfile')
 	summary = config.getboolean('main','summary')
 	unpak = config.getboolean('main','uncompress')
-	regs = config.get('main','regexes')
+	regexs = config.get('main','regexes')
 	stypes = config.get('main','skip_types')
 except Exception,e:
 	print(e)
 	exit(1)
 
 # Verify our options
-pathopts = [logfile,regs,stypes]
+pathopts = [logfile,regexs,stypes]
 boolopts = [summary,unpak]
 for p in pathopts:
 	if not path.exists(p):
@@ -66,3 +66,13 @@ logh = logging.FileHandler(logfile,mode='a')
 logh.setLevel(logging.DEBUG)
 logh.setFormatter(formatter)
 logger.addHandler(logh)
+
+# Set hostname
+hostname = os.uname()[1]
+
+# Get regexes from file
+with open(regexs,'r') as f:
+	regs = f.read().splitlines()
+
+# Clean up regs
+
