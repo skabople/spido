@@ -1,8 +1,9 @@
 #!/usr/bin/python
 
-import re,logging,stat,os
+import re,logging,os
 from sys import exit,version_info as ver
 from optparse import OptionParser
+from stat import S_ISREG,S_ISFIFO,S_ISLNK,S_ISSOCK
 
 try:
 	if ver[0] == 3:
