@@ -43,13 +43,13 @@ try:
 	summary = config.getboolean('main','summary')
 	unpak = config.getboolean('main','uncompress')
 	regexs = config.get('main','regexes')
-	stypes = config.get('main','skip_types')
+	skip_types = config.get('main','skip_types')
 except Exception,e:
 	print(e)
 	exit(1)
 
 # Verify our options
-pathopts = [logfile,regexs,stypes]
+pathopts = [logfile,regexs,skip_types]
 boolopts = [summary,unpak]
 for p in pathopts:
 	if not path.exists(p):
@@ -74,9 +74,11 @@ hostname = uname()[1]
 
 # Get regexes from file
 with open(regexs,'r') as f:
-	regs = f.read().splitlines()
+	data = []
+	for i in f.read().splitlines():
+		if not i.strip().startswith('#'):
+			data.append(i.strip())
+	regs = re.compile('|'.join('({0})'.format(x) for x in data))
+	del data,i
 
-# Clean up regs
-for r in regs:
-	if r.startswith('#'):
-		regs.remove(r)
+# Get skip_types
