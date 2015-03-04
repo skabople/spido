@@ -1,9 +1,10 @@
 #!/usr/bin/python
 
-import re,logging,os
+import re,logging
 from sys import exit,version_info as ver
 from optparse import OptionParser
 from stat import S_ISREG,S_ISFIFO,S_ISLNK,S_ISSOCK
+from os import path,uname,stat
 
 try:
 	if ver[0] == 3:
@@ -69,11 +70,13 @@ logh.setFormatter(formatter)
 logger.addHandler(logh)
 
 # Set hostname
-hostname = os.uname()[1]
+hostname = uname()[1]
 
 # Get regexes from file
 with open(regexs,'r') as f:
 	regs = f.read().splitlines()
 
 # Clean up regs
-
+for r in regs:
+	if r.startswith('#'):
+		regs.remove(r)
