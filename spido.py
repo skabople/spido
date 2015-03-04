@@ -79,6 +79,12 @@ with open(regexs,'r') as f:
 		if not i.strip().startswith('#'):
 			data.append(i.strip())
 	regs = re.compile('|'.join('({0})'.format(x) for x in data))
-	del data,i
+	del data,i,regexs
 
 # Get skip_types
+with open(skip_types,'r') as f:
+	stypes = []
+	for i in f.read().splitlines():
+		if not i.strip().startswith('#'):
+			stypes.append('.'+i.strip())
+	del i,skip_types
